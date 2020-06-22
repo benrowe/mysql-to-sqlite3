@@ -11,6 +11,8 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Build
         uses: docker/build-push-action@v1
         with:
@@ -18,4 +20,3 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: benrowe/mysql-to-sqlite3
           tags: latest
-
