@@ -1,0 +1,24 @@
+name: MySQL to SQLite3 Converter
+description: Connect to mysql and convert to sqlite3 file
+inputs:
+  output:
+    description: output file
+    required: true
+  database:
+    description: mysql database name
+    required: true
+  host:
+    description: mysql host address
+    required: true
+  username:
+    description: mysql username
+    required: true
+  password:
+    description: mysql password
+    required: true
+runs:
+  using: docker
+  image: benrowe/mysql-to-sqlite3
+  args:
+    -
+
