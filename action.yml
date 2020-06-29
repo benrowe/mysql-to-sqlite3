@@ -1,5 +1,6 @@
 name: MySQL to SQLite3 Converter
 description: Connect to mysql and convert to sqlite3 file
+author: "ben.rowe.83@gmail.com"
 
 inputs:
   output:
@@ -18,10 +19,22 @@ inputs:
     description: mysql password
     required: true
 
+outputs:
+  file:
+    description: The file that is generated
+
 runs:
   using: docker
   image: Dockerfile
+  args:
+    - ${{ inputs.host }}
+    - ${{ inputs.database }}
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
+    - ${{ inputs.output }}
+  post-entrypoint: gh-output.sh
 
 branding:
-  icon: "mic"
+  icon: "filter"
   color: "blue"
+
