@@ -1,3 +1,4 @@
+![Dockerhub Deploy](https://github.com/benrowe/mysql-to-sqlite3/workflows/Dockerhub%20Deploy/badge.svg)
 # MySQL to SQLite3 (Docker + Github action)
 
 Implements [MySQL to SQLite3][link-sql] as a docker utility
