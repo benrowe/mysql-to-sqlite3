@@ -1,0 +1,30 @@
+name: Dockerhub Deploy
+
+on:
+  push:
+    branches:
+      - feature/*
+
+
+jobs:
+  test:
+    name: Test conversion utility
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: example
+          MYSQL_USER: root
+        ports: 
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - name: Install DB Into MySQL
+        run: mysql -u root -p password example < sample.sql
+      - name: Convert MySQL to SQLite
+        run: echo "todo"
+      - name: Verify conversion
+        run: echo "todo"
+       
