@@ -22,7 +22,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Install DB Into MySQL
-        run: mysql -u root -p password example < sample.sql
+        run: mysql -u root -p password example < example.sql
       - name: Convert MySQL to SQLite
         run: echo "todo"
       - name: Verify conversion
