@@ -27,13 +27,11 @@ runs:
   using: docker
   image: Dockerfile
   args:
-    - "-v ${PWD}:/output"
     - ${{ inputs.host }}
     - ${{ inputs.database }}
     - ${{ inputs.username }}
     - ${{ inputs.password }}
     - ${{ inputs.output }}
-  # post-entrypoint: gh-output.sh
 
 branding:
   icon: "filter"
