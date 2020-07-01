@@ -29,7 +29,7 @@ jobs:
           PORT: ${{ job.services.mysql.ports['3306'] }}
         run: mysql --host 127.0.0.1 --port 32574 -uuser -ppassword example < example.sql
       - name: Convert MySQL to SQLite
-        uses: action.yml
+        uses: ./action.yml
         with:
           host: 127.0.0.1
           username: user
