@@ -15,8 +15,9 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: password
+          MYSQL_PASSWORD: password
+          MYSQL_USER: user
           MYSQL_DATABASE: example
-          MYSQL_USER: root
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -33,7 +34,7 @@ jobs:
       - name: Install DB Into MySQL
         env:
           PORT: ${{ job.services.mysql.ports['3306'] }}
-        run: mysql -h127.0.0.1 -uroot -ppassword -p"$PORT" example < example.sql
+        run: mysql -h"127.0.0.1" -u"user" -p"password" -p"$PORT" example < example.sql
       - name: Convert MySQL to SQLite
         run: echo "todo"
       - name: Verify conversion
