@@ -17,16 +17,16 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: example
           MYSQL_USER: root
-        ports: 
+        ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install DB Into MySQL
-        run: mysql -uroot -ppassword example < example.sql
+        run: mysql -h127.0.01 -uroot -ppassword example < example.sql
       - name: Convert MySQL to SQLite
         run: echo "todo"
       - name: Verify conversion
         run: echo "todo"
-       
+
