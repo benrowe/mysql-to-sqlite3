@@ -17,7 +17,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: example
           MYSQL_USER: root
-        ports: 
+        ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
@@ -27,7 +27,7 @@ jobs:
         run: echo "todo"
       - name: Verify conversion
         run: echo "todo"
-        
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
