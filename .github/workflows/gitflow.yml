@@ -24,7 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install DB Into MySQL
-        run: mysql -h127.0.0.1 -uroot -ppassword example < example.sql
+        env:
+          PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: mysql -h127.0.0.1 -uroot -ppassword -p"$PORT" example < example.sql
       - name: Convert MySQL to SQLite
         run: echo "todo"
       - name: Verify conversion
