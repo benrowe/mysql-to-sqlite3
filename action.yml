@@ -15,6 +15,9 @@ inputs:
   username:
     description: mysql username
     required: true
+  port:
+    description: mysql port
+    required: true
   password:
     description: mysql password
     required: true
@@ -28,6 +31,7 @@ runs:
   image: Dockerfile
   args:
     - ${{ inputs.host }}
+    - ${{ inputs.port }}
     - ${{ inputs.database }}
     - ${{ inputs.username }}
     - ${{ inputs.password }}

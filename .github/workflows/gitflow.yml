@@ -32,6 +32,7 @@ jobs:
         uses: ./
         with:
           host: 127.0.0.1
+          port: 32574
           username: user
           password: password
           database: example
