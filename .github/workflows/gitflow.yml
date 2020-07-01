@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install DB Into MySQL
-        run: mysql -h127.0.01 -uroot -ppassword example < example.sql
+        run: mysql -h127.0.0.1 -uroot -ppassword example < example.sql
       - name: Convert MySQL to SQLite
         run: echo "todo"
       - name: Verify conversion
