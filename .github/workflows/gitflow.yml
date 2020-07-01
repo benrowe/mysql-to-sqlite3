@@ -19,22 +19,15 @@ jobs:
           MYSQL_USER: user
           MYSQL_DATABASE: example
         ports:
-          - 3306
+          - 32574:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Verify MySQL connection
-        env:
-          PORT: ${{ job.services.mysql.ports[3306] }}
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-            sleep 1
-          done
       - name: Install DB Into MySQL
         env:
           PORT: ${{ job.services.mysql.ports['3306'] }}
-        run: mysql -h"127.0.0.1" -u"user" -p"password" -p"$PORT" example < example.sql
+        run: mysql --host 127.0.0.1 --port 32574 -uuser -ppassword example < example.sql
       - name: Convert MySQL to SQLite
         run: echo "todo"
       - name: Verify conversion
