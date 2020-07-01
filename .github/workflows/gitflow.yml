@@ -28,10 +28,14 @@ jobs:
         env:
           PORT: ${{ job.services.mysql.ports['3306'] }}
         run: mysql --host 127.0.0.1 --port 32574 -uuser -ppassword example < example.sql
-      - name: Build docker
-        run: docker build -t "pipeline" .
       - name: Convert MySQL to SQLite
-        run: docker run pipeline
+        uses: action.yml
+        with:
+          host: 127.0.0.1
+          username: user
+          password: password
+          database: example
+          output: tmp.sqlite
       - name: Verify conversion
         run: echo "todo"
 
