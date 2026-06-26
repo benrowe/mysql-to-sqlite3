@@ -3,7 +3,7 @@ name: Dockerhub Deploy
 on:
   push:
     branches:
-      - master
+      - feature/*
 
 
 jobs:
@@ -15,30 +15,28 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: password
+          MYSQL_PASSWORD: password
+          MYSQL_USER: user
           MYSQL_DATABASE: example
-          MYSQL_USER: root
         ports:
-          - 3306
+          - 32574:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    steps:
-      - name: Install DB Into MySQL
-        run: mysql -u root -p password example < sample.sql
-      - name: Convert MySQL to SQLite
-        run: echo "todo"
-      - name: Verify conversion
-        run: echo "todo"
-
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: [test]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build
-        uses: docker/build-push-action@v1
+      - name: Install DB Into MySQL
+        env:
+          PORT: ${{ job.services.mysql.ports['3306'] }}
+        run: mysql --host 127.0.0.1 --port 32574 -uuser -ppassword example < example.sql
+      - name: Convert MySQL to SQLite
+        uses: ./
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: benrowe/mysql-to-sqlite3
-          tags: latest
+          host: 127.0.0.1
+          port: 32574
+          username: user
+          password: password
+          database: example
+          output: tmp.sqlite
+      - name: Verify conversion
+        run: echo "todo"
+
